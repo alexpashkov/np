@@ -57,10 +57,10 @@ func readPuzzle(from io.Reader) (puzzle Puzzle, err error) {
 			sizeHasBeenSet = true
 		} else {
 			var row []int
-			row, err = parseRow(line, size)
 			if len(puzzle.board) >= size {
-				err = errors.New("invalid puzzle size")
+				return puzzle, errors.New("invalid puzzle size")
 			}
+			row, err = parseRow(line, size)
 			if err == nil {
 				puzzle.board = append(puzzle.board, row)
 			}
