@@ -29,7 +29,7 @@ func parseRow(line string, size int) ([]int, error) {
 	line = strings.Trim(line, " ")
 	tileStringVals := regexp.MustCompile(`\s+`).Split(line, -1)
 	if len(tileStringVals) != size {
-		return nil, errors.New("invalid line")
+		return nil, errors.New("invalid number of tiles in a line")
 	}
 	for i, tileStringVal := range tileStringVals {
 		tileIntVal, err := strconv.Atoi(tileStringVal)
@@ -47,7 +47,7 @@ func readPuzzle(from io.Reader) (puzzle Puzzle, err error) {
 		size           int
 		sizeHasBeenSet = false
 	)
-	for i := 0; scanner.Scan(); {
+	for scanner.Scan() {
 		line := removeComments(scanner.Text())
 		if len(line) == 0 {
 			continue
@@ -56,11 +56,11 @@ func readPuzzle(from io.Reader) (puzzle Puzzle, err error) {
 			size, err = parseSize(line)
 			sizeHasBeenSet = true
 		} else {
-			if i++; i >= size {
-				return puzzle, errors.New("invalid puzzle size")
-			}
 			var row []int
 			row, err = parseRow(line, size)
+			if len(puzzle.board) >= size {
+				err = errors.New("invalid puzzle size")
+			}
 			if err == nil {
 				puzzle.board = append(puzzle.board, row)
 			}
