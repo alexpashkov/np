@@ -1,6 +1,8 @@
 package board
 
-type Board [][]int
+type Tile int
+type Row []Tile
+type Board []Row
 
 type Direction struct {
 	x, y int
