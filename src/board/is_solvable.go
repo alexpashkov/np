@@ -17,8 +17,16 @@ func TileInversions(board Board, x, y int) (inversions int) {
 
 // Counts total number of inversions for the board
 func Inversions(board Board) (inversions int) {
-	ch := make(chan int)
-	board.ForEach(func(_ Tile, x, y int) {
+	var (
+		ch       = make(chan int)
+		zeroXPos = 0
+		zeroYPos = 0
+	)
+	board.ForEach(func(t Tile, x, y int) {
+		if t.Val() == 0 {
+			zeroXPos = x
+			zeroYPos = y
+		}
 		go func() {
 			ch <- TileInversions(board, x, y)
 		}()
@@ -26,6 +34,10 @@ func Inversions(board Board) (inversions int) {
 	board.ForEach(func(_ Tile, _, _ int) {
 		inversions += <-ch
 	})
+	// if board size is even (there is no central tile), do some magic:
+	if board.Size()%2 == 0 {
+		inversions += zeroYPos*board.Size() + zeroXPos
+	}
 	return
 }
 
