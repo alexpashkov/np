@@ -1,6 +1,6 @@
 package board
 
-// Flattens the board, assumes, that board is valid.
+// Flattens the board. Assumes, that the board is valid.
 // If includeZero is false, zero would not be included
 func Flatten(board Board, includeZero bool) Row {
 	var size = len(board) * len(board)
