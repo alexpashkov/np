@@ -30,6 +30,6 @@ func Inversions(board Board) (inversions int) {
 }
 
 // Checks if a board is solvable
-//func IsSolvable(board Board) bool {
-//
-//}
+func IsSolvable(board Board) bool {
+	return Inversions(board) == Inversions(GetSolved(board.Size()))
+}
