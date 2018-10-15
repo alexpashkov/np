@@ -19,7 +19,7 @@ func getNextCoords(x, y int, direction Direction) (int, int) {
 	return x, y
 }
 
-func shouldChangeDirection(board [][]int, x, y int, direction Direction) bool {
+func shouldChangeDirection(board Board, x, y int, direction Direction) bool {
 	x, y = getNextCoords(x, y, direction)
 	return x < 0 || y < 0 || x >= len(board) || y >= len(board) || board[y][x] != 0
 }
@@ -27,12 +27,12 @@ func shouldChangeDirection(board [][]int, x, y int, direction Direction) bool {
 func GetSolved(size int) Board {
 	board := make(Board, size)
 	for i := range board {
-		board[i] = make([]int, size)
+		board[i] = make(Row, size)
 	}
 	getNextDirection := nextDirectionGenerator()
 	direction, x, y := getNextDirection(), 0, 0
 	for i := 1; i < size*size; i++ {
-		board[y][x] = i
+		board[y][x] = Tile(i)
 		if shouldChangeDirection(board, x, y, direction) {
 			direction = getNextDirection()
 		}
