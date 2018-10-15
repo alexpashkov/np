@@ -9,6 +9,10 @@ func (t Tile) Val() int {
 type Row []Tile
 type Board []Row
 
+func (b Board) Tile(x, y int) Tile {
+	return b[y][x]
+}
+
 func (b Board) ForEach(fn func(t Tile, x, y int)) {
 	for y := range b {
 		for x, t := range b[y] {
