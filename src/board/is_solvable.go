@@ -3,8 +3,8 @@ package board
 // Counts number of inversions for a tile in position x, y
 func TileInversions(board Board, x, y int) (inversions int) {
 	examinedTile := board.Tile(x, y)
-	for currY := y; currY < len(board); currY++ {
-		for currX := x; currX < len(board); currX++ {
+	for currY := y; currY < board.Size(); currY++ {
+		for currX := x; currX < board.Size(); currX++ {
 			currTile := board.Tile(currX, currY)
 			if currTile.Val() != 0 &&
 				examinedTile.Val() > currTile.Val() {

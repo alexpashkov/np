@@ -9,6 +9,10 @@ func (t Tile) Val() int {
 type Row []Tile
 type Board []Row
 
+func (b Board) Size() int {
+	return len(b)
+}
+
 func (b Board) Tile(x, y int) Tile {
 	return b[y][x]
 }
