@@ -4,10 +4,13 @@ package board
 func TileInversions(board Board, x, y int) (inversions int) {
 	examinedTile := board.Tile(x, y)
 	for currY := y; currY < board.Size(); currY++ {
-		for currX := x; currX < board.Size(); currX++ {
+		currX := 0
+		if currY == y {
+			currX = x
+		}
+		for ; currX < board.Size(); currX++ {
 			currTile := board.Tile(currX, currY)
-			if currTile.Val() != 0 &&
-				examinedTile.Val() > currTile.Val() {
+			if currTile.Val() != 0 && examinedTile.Val() > currTile.Val() {
 				inversions++
 			}
 		}
@@ -43,5 +46,5 @@ func Inversions(board Board) (inversions int) {
 
 // Checks if a board is solvable
 func IsSolvable(board Board) bool {
-	return Inversions(board) == Inversions(GetSolved(board.Size()))
+	return Inversions(board)%2 == Inversions(GetSolved(board.Size()))%2
 }
