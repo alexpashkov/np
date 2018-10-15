@@ -12,7 +12,7 @@ import (
 )
 
 type Puzzle struct {
-	board [][]int
+	board board.Board
 }
 
 func removeComments(line string) string {
@@ -24,8 +24,8 @@ func parseSize(line string) (size int, err error) {
 	return size, err
 }
 
-func parseRow(line string, size int) ([]int, error) {
-	row := make([]int, size)
+func parseRow(line string, size int) (board.Row, error) {
+	row := make(board.Row, size)
 	line = strings.Trim(line, " ")
 	tileStringVals := regexp.MustCompile(`\s+`).Split(line, -1)
 	if len(tileStringVals) != size {
@@ -36,7 +36,7 @@ func parseRow(line string, size int) ([]int, error) {
 		if err != nil {
 			return nil, errors.New("tile value is not an integer")
 		}
-		row[i] = tileIntVal
+		row[i] = board.Tile(tileIntVal)
 	}
 	return row, nil
 }
@@ -56,7 +56,7 @@ func readPuzzle(from io.Reader) (puzzle Puzzle, err error) {
 			size, err = parseSize(line)
 			sizeHasBeenSet = true
 		} else {
-			var row []int
+			var row board.Row
 			if len(puzzle.board) >= size {
 				return puzzle, errors.New("invalid puzzle size")
 			}
