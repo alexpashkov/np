@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/alexpashkov/npuzzle/src/board"
 	"io"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -73,11 +74,13 @@ func readPuzzle(from io.Reader) (puzzle Puzzle, err error) {
 }
 
 func main() {
-	//puzzle, err := readPuzzle(os.Stdin)
-	//if err == nil {
-	//	fmt.Println("Puzzle:", puzzle)
-	//} else {
-	//	fmt.Println("Error:", err)
-	//}
-	fmt.Println(board.GetSolved(6))
+	puzzle, err := readPuzzle(os.Stdin)
+	if err == nil {
+		fmt.Println("Puzzle:", puzzle)
+		if !board.IsSolvable(puzzle.board) {
+			fmt.Println("Puzzle is not solvable")
+		}
+	} else {
+		fmt.Println("Input error:", err)
+	}
 }
