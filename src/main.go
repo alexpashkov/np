@@ -2,19 +2,21 @@ package main
 
 import (
 	"fmt"
-	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"log"
 	"os"
+	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"github.com/alexpashkov/npuzzle/src/path"
 )
 
 func main() {
-	p, err := puzzle.Read(os.Stdin)
+	initialPuzzle, err := puzzle.Read(os.Stdin)
 	if err == nil {
-		fmt.Println("Puzzle:", p)
-		sp := puzzle.GetSolved(p.Size())
-		if !puzzle.IsSolvable(p, sp) {
+		fmt.Println("Puzzle:", initialPuzzle)
+		solvedPuzzle := puzzle.GetSolved(initialPuzzle.Size())
+		if !puzzle.IsReachable(initialPuzzle, solvedPuzzle) {
 			log.Fatalln("Puzzle is not solvable")
 		}
+		path.Find(initialPuzzle, solvedPuzzle)
 	} else {
 		log.Fatalln("Input error:", err)
 	}

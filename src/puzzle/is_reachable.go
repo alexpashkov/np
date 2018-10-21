@@ -46,10 +46,7 @@ func Inversions(p Puzzle) (invs int) {
 	return
 }
 
-// Checks if a p is solvable
-func IsSolvable(p, sp Puzzle) bool {
-	if sp == nil {
-		sp = GetSolved(p.Size())
-	}
-	return Inversions(p)%2 == Inversions(sp)%2
+// Checks if it is possible to go from to to
+func IsReachable(from, to Puzzle) bool {
+	return Inversions(from)%2 == Inversions(to)%2
 }
