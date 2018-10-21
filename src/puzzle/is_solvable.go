@@ -25,7 +25,7 @@ func Inversions(p Puzzle) (invs int) {
 		zeroXPos = 0
 		zeroYPos = 0
 	)
-	p.ForEach(func(t Tile, x, y int) bool {
+	p.ForEach(func(t Tile, x, y int) (shellContinue bool) {
 		if t.Val() == 0 {
 			zeroXPos = x
 			zeroYPos = y
@@ -35,7 +35,7 @@ func Inversions(p Puzzle) (invs int) {
 		}()
 		return true
 	})
-	p.ForEach(func(_ Tile, _, _ int) bool {
+	p.ForEach(func(_ Tile, _, _ int) (shellContinue bool) {
 		invs += <-ch
 		return true
 	})

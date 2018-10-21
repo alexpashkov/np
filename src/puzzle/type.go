@@ -18,10 +18,10 @@ func (p Puzzle) Tile(x, y int) Tile {
 }
 
 func (p Puzzle) Coords(t Tile) (x, y int) {
-	p.ForEach(func(ct Tile, cx, cy int) bool {
+	p.ForEach(func(ct Tile, cx, cy int) (shellContinue bool) {
 		if ct.Val() == t.Val() {
 			x, y = cx, cy
-			return false // stop here
+			return false
 		}
 		return true
 	})

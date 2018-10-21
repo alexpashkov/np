@@ -1,12 +1,12 @@
 package priority_queue
 
 import (
-	"github.com/alexpashkov/npuzzle/src/state"
 	"github.com/alexpashkov/npuzzle/src/heuristics"
+	"github.com/alexpashkov/npuzzle/src/state"
 )
 
 type PriorityQueue struct {
-	queue []*state.State
+	queue        []*state.State
 	priorityCalc heuristics.Fn
 }
 

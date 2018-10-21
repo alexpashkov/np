@@ -14,7 +14,7 @@ type State struct {
 }
 
 func (s State) Id() (id Id) {
-	s.Puzzle.ForEach(func(t puzzle.Tile, _, _ int) bool {
+	s.Puzzle.ForEach(func(t puzzle.Tile, _, _ int) (shellContinue bool) {
 		id += Id(strconv.Itoa(t.Val()))
 		return true
 	})
