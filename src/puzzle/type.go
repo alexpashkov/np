@@ -17,10 +17,25 @@ func (p Puzzle) Tile(x, y int) Tile {
 	return p[y][x]
 }
 
-func (p Puzzle) ForEach(fn func(t Tile, x, y int)) {
+func (p Puzzle) Coords(t Tile) (x, y int) {
+	p.ForEach(func(ct Tile, cx, cy int) bool {
+		if ct.Val() == t.Val() {
+			x, y = cx, cy
+			return false // stop here
+		}
+		return true
+	})
+	return
+}
+
+// Iterates over puzzle tiles. Iteration will stop if provided function returns false
+func (p Puzzle) ForEach(fn func(t Tile, x, y int) (shellContinue bool)) {
 	for y := range p {
 		for x, t := range p[y] {
-			fn(t, x, y)
+			shellStop := !fn(t, x, y)
+			if shellStop {
+				return
+			}
 		}
 	}
 }
