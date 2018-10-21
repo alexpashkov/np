@@ -1,24 +1,24 @@
-package board
+package puzzle
 
 import "testing"
 
-type TestCase struct {
-	size  int
-	board Board
+type testCase struct {
+	size int
+	p    Puzzle
 }
 
 var (
-	passingTestCases = []TestCase{
+	passingTestCases = []testCase{
 		{
 			size: 2,
-			board: Board{
+			p: Puzzle{
 				{1, 2},
 				{0, 3},
 			},
 		},
 		{
 			size: 3,
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3},
 				{8, 0, 4},
 				{7, 6, 5},
@@ -26,7 +26,7 @@ var (
 		},
 		{
 			size: 4,
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3, 4},
 				{12, 13, 14, 5},
 				{11, 0, 15, 6},
@@ -34,17 +34,17 @@ var (
 			},
 		},
 	}
-	failingTestCases = []TestCase{
+	failingTestCases = []testCase{
 		{
 			size: 2,
-			board: Board{
+			p: Puzzle{
 				{1, 2},
 				{3, 4},
 			},
 		},
 		{
 			size: 3,
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3},
 				{8, 9, 4},
 				{7, 6, 5},
@@ -52,7 +52,7 @@ var (
 		},
 		{
 			size: 4,
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3, 4},
 				{12, 13, 14, 5},
 				{11, 9, 15, 6},
@@ -62,8 +62,8 @@ var (
 	}
 )
 
-// Checks if 2 boards are equal
-func boardEq(a Board, b Board) bool {
+// Checks if 2 puzzles are equal
+func puzzleEq(a Puzzle, b Puzzle) bool {
 	if len(a) != len(b) {
 		return false
 	}
@@ -82,17 +82,17 @@ func boardEq(a Board, b Board) bool {
 
 func TestGetSolved(t *testing.T) {
 	for _, testCase := range passingTestCases {
-		solvedBoard := GetSolved(testCase.size)
-		if !boardEq(solvedBoard, testCase.board) {
-			t.Error("Boards are not equal, size: ", testCase.size,
-				"expected: ", testCase.board, "got: ", solvedBoard)
+		sp := GetSolved(testCase.size)
+		if !puzzleEq(sp, testCase.p) {
+			t.Error("puzzles are not equal, size: ", testCase.size,
+				"expected: ", testCase.p, "got: ", sp)
 		}
 	}
 	for _, testCase := range failingTestCases {
-		solvedBoard := GetSolved(testCase.size)
-		if boardEq(solvedBoard, testCase.board) {
-			t.Error("Boards are not equal, size: ", testCase.size,
-				"expected: ", testCase.board, "got: ", solvedBoard)
+		sp := GetSolved(testCase.size)
+		if puzzleEq(sp, testCase.p) {
+			t.Error("puzzles are not equal, size: ", testCase.size,
+				"expected: ", testCase.p, "got: ", sp)
 		}
 	}
 }

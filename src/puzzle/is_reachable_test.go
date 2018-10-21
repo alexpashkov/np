@@ -1,4 +1,4 @@
-package board
+package puzzle
 
 import "testing"
 
@@ -6,7 +6,7 @@ func TestTileInversions(t *testing.T) {
 	type testCase struct {
 		x, y, expected int
 	}
-	board := Board{
+	p := Puzzle{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 0},
@@ -29,7 +29,7 @@ func TestTileInversions(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		got := TileInversions(board, tc.x, tc.y)
+		got := TileInversions(p, tc.x, tc.y)
 		if got != tc.expected {
 			t.Error("Wrong number of inversions, got ", got, "expected: ", tc.expected)
 		}
@@ -38,13 +38,13 @@ func TestTileInversions(t *testing.T) {
 
 func TestInversions(t *testing.T) {
 	type testCase struct {
-		board    Board
+		p        Puzzle
 		expected int
 	}
 
 	testCases := []testCase{
 		{
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3, 4},
 				{5, 6, 7, 8},
 				{9, 10, 11, 12},
@@ -53,7 +53,7 @@ func TestInversions(t *testing.T) {
 			expected: 15,
 		},
 		{
-			board: Board{
+			p: Puzzle{
 				{1, 2, 3},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -61,7 +61,7 @@ func TestInversions(t *testing.T) {
 			expected: 0,
 		},
 		{
-			board: Board{
+			p: Puzzle{
 				{2, 1, 3},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -69,7 +69,7 @@ func TestInversions(t *testing.T) {
 			expected: 1,
 		},
 		{
-			board: Board{
+			p: Puzzle{
 				{2, 3, 1},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -77,7 +77,7 @@ func TestInversions(t *testing.T) {
 			expected: 2,
 		},
 		{
-			board: Board{
+			p: Puzzle{
 				{1, 4, 2},
 				{5, 6, 3},
 				{7, 8, 0},
@@ -86,7 +86,7 @@ func TestInversions(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		bi := Inversions(tc.board)
+		bi := Inversions(tc.p)
 		if bi != tc.expected {
 			t.Error("Wrong number of inversions, got ", bi, "expected: ", tc.expected)
 		}
