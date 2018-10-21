@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"log"
 )
 
 func main() {
@@ -11,9 +12,9 @@ func main() {
 	if err == nil {
 		fmt.Println("Puzzle:", b)
 		if !puzzle.IsSolvable(b) {
-			fmt.Println("Puzzle is not solvable")
+			log.Fatalln("Puzzle is not solvable")
 		}
 	} else {
-		fmt.Println("Input error:", err)
+		log.Fatalln("Input error:", err)
 	}
 }
