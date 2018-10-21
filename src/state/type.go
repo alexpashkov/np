@@ -3,11 +3,12 @@ package state
 import (
 	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"strconv"
+	"github.com/alexpashkov/npuzzle/src/heuristics"
 )
 
 type State struct {
 	parent *State
-	puzzle  puzzle.Puzzle
+	puzzle puzzle.Puzzle
 }
 
 func (s State) Id() (id string) {
@@ -25,14 +26,12 @@ func (s State) G() (g int) {
 	return
 }
 
-type HeuristicFunc func(b puzzle.Puzzle) int
-
 // takes heuristics function as a parameter
-func (s State) H(f HeuristicFunc) int {
+func (s State) H(f heuristics.Fn) int {
 	return f(s.puzzle)
 }
 
 // takes heuristics function as a parameter
-func (s State) F(f HeuristicFunc) int {
+func (s State) F(f heuristics.Fn) int {
 	return s.G() + s.H(f)
 }
