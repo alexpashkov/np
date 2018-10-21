@@ -24,7 +24,8 @@ func shouldChangeDirection(p Puzzle, x, y int, dir Direction) bool {
 	return x < 0 || y < 0 || x >= len(p) || y >= len(p) || p.Tile(x, y).Val() != 0
 }
 
-var solvedPuzzles = make(map[int]Puzzle);
+var solvedPuzzles = make(map[int]Puzzle)
+
 func GetSolved(size int) Puzzle {
 	p, ok := solvedPuzzles[size]
 	if ok {
