@@ -21,11 +21,16 @@ func getNextCoords(x, y int, dir Direction) (int, int) {
 
 func shouldChangeDirection(p Puzzle, x, y int, dir Direction) bool {
 	x, y = getNextCoords(x, y, dir)
-	return x < 0 || y < 0 || x >= len(p) || y >= len(p) || p[y][x] != 0
+	return x < 0 || y < 0 || x >= len(p) || y >= len(p) || p.Tile(x, y).Val() != 0
 }
 
+var solvedPuzzles = make(map[int]Puzzle);
 func GetSolved(size int) Puzzle {
-	p := make(Puzzle, size)
+	p, ok := solvedPuzzles[size]
+	if ok {
+		return p
+	}
+	p = make(Puzzle, size)
 	for i := range p {
 		p[i] = make(Row, size)
 	}
@@ -38,5 +43,6 @@ func GetSolved(size int) Puzzle {
 		}
 		x, y = getNextCoords(x, y, direction)
 	}
+	solvedPuzzles[size] = p
 	return p
 }
