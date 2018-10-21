@@ -14,11 +14,11 @@ func Abs(n int) int {
 // calc distance for particular tile
 func tileDist(tile puzzle.Tile, x, y int, solvedP puzzle.Puzzle) int {
 	sx, sy := solvedP.Coords(tile)
-	return Abs(x - sx) + Abs(y - sy)
+	return Abs(x-sx) + Abs(y-sy)
 }
 
 // Takes puzzle and solved puzzle states
-func Manhattan(p, solvedP puzzle.Puzzle) (dist int) {
+var Manhattan Fn = func(p, solvedP puzzle.Puzzle) (dist int) {
 	distCh := make(chan int)
 	p.ForEach(func(t puzzle.Tile, x, y int) (shellContinue bool) {
 		go func() {
