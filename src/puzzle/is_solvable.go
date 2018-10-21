@@ -47,6 +47,9 @@ func Inversions(p Puzzle) (invs int) {
 }
 
 // Checks if a p is solvable
-func IsSolvable(p Puzzle) bool {
-	return Inversions(p)%2 == Inversions(GetSolved(p.Size()))%2
+func IsSolvable(p, sp Puzzle) bool {
+	if sp == nil {
+		sp = GetSolved(p.Size())
+	}
+	return Inversions(p)%2 == Inversions(sp)%2
 }

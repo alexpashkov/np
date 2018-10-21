@@ -8,10 +8,11 @@ import (
 )
 
 func main() {
-	b, err := puzzle.Read(os.Stdin)
+	p, err := puzzle.Read(os.Stdin)
 	if err == nil {
-		fmt.Println("Puzzle:", b)
-		if !puzzle.IsSolvable(b) {
+		fmt.Println("Puzzle:", p)
+		sp := puzzle.GetSolved(p.Size())
+		if !puzzle.IsSolvable(p, sp) {
 			log.Fatalln("Puzzle is not solvable")
 		}
 	} else {
