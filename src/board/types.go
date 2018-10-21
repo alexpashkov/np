@@ -39,10 +39,22 @@ func (s State) Id() (id string) {
 	return
 }
 
-func (s *State) G() (g int) {
+func (s State) G() (g int) {
 	p := s.parent
 	for ; p != nil; p = p.parent {
 		g++
 	}
 	return
+}
+
+type HeuristicFunc func(b Board) int
+
+// takes heuristics function as a parameter
+func (s State) H(f HeuristicFunc) int {
+	return f(s.board)
+}
+
+// takes heuristics function as a parameter
+func (s State) F(f HeuristicFunc) int {
+	return s.G() + s.H(f)
 }
