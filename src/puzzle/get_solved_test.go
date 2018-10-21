@@ -2,13 +2,13 @@ package puzzle
 
 import "testing"
 
-type TestCase struct {
+type testCase struct {
 	size int
 	p    Puzzle
 }
 
 var (
-	passingTestCases = []TestCase{
+	passingTestCases = []testCase{
 		{
 			size: 2,
 			p: Puzzle{
@@ -34,7 +34,7 @@ var (
 			},
 		},
 	}
-	failingTestCases = []TestCase{
+	failingTestCases = []testCase{
 		{
 			size: 2,
 			p: Puzzle{
