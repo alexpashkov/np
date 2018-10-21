@@ -30,8 +30,8 @@ func (s State) G() (g int) {
 }
 
 // takes heuristics function as a parameter
-func (s State) H(f heuristics.Fn) int {
-	return f(s.Puzzle)
+func (s *State) H(f heuristics.Fn) int {
+	return f(s.Puzzle, puzzle.GetSolved(s.Puzzle.Size()))
 }
 
 // takes heuristics function as a parameter
