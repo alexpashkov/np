@@ -27,9 +27,22 @@ func (b Board) ForEach(fn func(t Tile, x, y int)) {
 	}
 }
 
-func (b Board) Id() (id string) {
-	b.ForEach(func(t Tile, _, _ int) {
+type State struct {
+	parent *State
+	board  Board
+}
+
+func (s State) Id() (id string) {
+	s.board.ForEach(func(t Tile, _, _ int) {
 		id += strconv.Itoa(t.Val())
 	})
+	return
+}
+
+func (s *State) G() (g int) {
+	p := s.parent
+	for ; p != nil; p = p.parent {
+		g++
+	}
 	return
 }
