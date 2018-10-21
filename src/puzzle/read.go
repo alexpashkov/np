@@ -1,13 +1,13 @@
 package puzzle
 
 import (
-	"io"
 	"bufio"
 	"errors"
-	"regexp"
 	"fmt"
-	"strings"
+	"io"
+	"regexp"
 	"strconv"
+	"strings"
 )
 
 func removeComments(line string) string {

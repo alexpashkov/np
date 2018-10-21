@@ -1,19 +1,21 @@
 package state
 
 import (
+	"github.com/alexpashkov/npuzzle/src/heuristics"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"strconv"
-	"github.com/alexpashkov/npuzzle/src/heuristics"
 )
+
+type Id string
 
 type State struct {
 	parent *State
 	puzzle puzzle.Puzzle
 }
 
-func (s State) Id() (id string) {
+func (s State) Id() (id Id) {
 	s.puzzle.ForEach(func(t puzzle.Tile, _, _ int) {
-		id += strconv.Itoa(t.Val())
+		id += Id(strconv.Itoa(t.Val()))
 	})
 	return
 }

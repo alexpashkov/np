@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"log"
+	"os"
 )
 
 func main() {
