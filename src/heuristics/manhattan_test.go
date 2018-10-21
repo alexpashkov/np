@@ -1,8 +1,8 @@
 package heuristics
 
 import (
-	"testing"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"testing"
 )
 
 type testCase struct {

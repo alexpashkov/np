@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/alexpashkov/npuzzle/src/path"
+	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"log"
 	"os"
-	"github.com/alexpashkov/npuzzle/src/puzzle"
-	"github.com/alexpashkov/npuzzle/src/path"
 )
 
 func main() {

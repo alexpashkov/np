@@ -1,10 +1,10 @@
 package priority_queue
 
 import (
-	"testing"
 	"github.com/alexpashkov/npuzzle/src/heuristics"
-	"github.com/alexpashkov/npuzzle/src/state"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"github.com/alexpashkov/npuzzle/src/state"
+	"testing"
 )
 
 func setupPriorityQueue() (pq PriorityQueue) {
@@ -55,7 +55,7 @@ func TestPriorityQueue_Has2(t *testing.T) {
 
 	pq.queue = append(pq.queue, item)
 
-	if pq.Has(&state.State {
+	if pq.Has(&state.State{
 		Parent: nil,
 		Puzzle: puzzle.Puzzle{{2, 1, 3}, {4, 5, 6}, {7, 8, 0}},
 	}) {

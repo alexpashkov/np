@@ -1,8 +1,8 @@
 package priority_queue
 
 import (
-	"github.com/alexpashkov/npuzzle/src/state"
 	"github.com/alexpashkov/npuzzle/src/heuristics"
+	"github.com/alexpashkov/npuzzle/src/state"
 	"reflect"
 )
 
@@ -39,7 +39,7 @@ func (pq PriorityQueue) Has(x interface{}) bool {
 
 	for _, item := range pq.queue {
 		if reflect.DeepEqual(*desiredItem, *item) {
-			return true;
+			return true
 		}
 	}
 
