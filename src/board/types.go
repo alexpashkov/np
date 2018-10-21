@@ -1,5 +1,7 @@
 package board
 
+import "strconv"
+
 type Tile int
 
 func (t Tile) Val() int {
@@ -23,4 +25,11 @@ func (b Board) ForEach(fn func(t Tile, x, y int)) {
 			fn(t, x, y)
 		}
 	}
+}
+
+func (b Board) Id() (id string) {
+	b.ForEach(func(t Tile, _, _ int) {
+		id += strconv.Itoa(t.Val())
+	})
+	return
 }
