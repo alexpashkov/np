@@ -1,27 +1,34 @@
 package priority_queue
 
 import (
+	"container/heap"
 	"github.com/alexpashkov/npuzzle/src/heuristics"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
 	"github.com/alexpashkov/npuzzle/src/state"
 	"testing"
 )
 
-func setupPriorityQueue() (pq PriorityQueue) {
+func setupPriorityQueue(t *testing.T) (pq PriorityQueue) {
 	pq = New(heuristics.Manhattan)
-	pq.Push(&state.State{
-		Parent: nil,
-		Puzzle: puzzle.Puzzle{{0, 1, 2}, {3, 4, 5}, {6, 7, 8}},
-	})
-	pq.Push(&state.State{
-		Parent: nil,
-		Puzzle: puzzle.Puzzle{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}},
-	})
+	itemsList := []*state.State{
+		{
+			Parent: nil,
+			Puzzle: puzzle.Puzzle{{0, 1, 2}, {3, 4, 5}, {6, 7, 8}},
+		},
+		{
+			Parent: nil,
+			Puzzle: puzzle.Puzzle{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}},
+		},
+	}
+	t.Log("The priority for the first item: ", itemsList[0].F(heuristics.Manhattan))
+	t.Log("The priority for the second item: ", itemsList[1].F(heuristics.Manhattan))
+	heap.Push(&pq, itemsList[0])
+	heap.Push(&pq, itemsList[1])
 	return
 }
 
 func TestPriorityQueue_Len(t *testing.T) {
-	pq := setupPriorityQueue()
+	pq := setupPriorityQueue(t)
 
 	if pq.Len() != 2 {
 		t.Error("Invalid length of PriorityQueue. Expected: 2. Got: ", pq.Len())
@@ -64,13 +71,13 @@ func TestPriorityQueue_Has2(t *testing.T) {
 }
 
 func TestPriorityQueue_Push(t *testing.T) {
-	pq := setupPriorityQueue()
+	pq := setupPriorityQueue(t)
 
 	item := &state.State{
 		Parent: nil,
 		Puzzle: puzzle.Puzzle{{5, 3, 1}, {2, 4, 6}, {0, 7, 8}},
 	}
-	pq.Push(item)
+	heap.Push(&pq, item)
 
 	if pq.Len() != 3 {
 		t.Error("Invalid length of PriorityQueue. Expected: 3. Got: ", pq.Len())
@@ -82,9 +89,7 @@ func TestPriorityQueue_Push(t *testing.T) {
 }
 
 func TestPriorityQueue_Pop(t *testing.T) {
-	pq := PriorityQueue{
-		priorityCalc: heuristics.Manhattan,
-	}
+	pq := New(heuristics.Manhattan)
 	itemList := []*state.State{
 		{
 			Parent: nil,
@@ -94,14 +99,34 @@ func TestPriorityQueue_Pop(t *testing.T) {
 			Parent: nil,
 			Puzzle: puzzle.Puzzle{{1, 2, 3}, {4, 5, 6}, {7, 0, 8}},
 		},
+		{
+			Parent: nil,
+			Puzzle: puzzle.Puzzle{{3, 1, 2}, {5, 8, 4}, {6, 7, 0}},
+		},
+		{
+			Parent: nil,
+			Puzzle: puzzle.Puzzle{{8, 1, 2}, {5, 7, 3}, {0, 4, 6}},
+		},
+		{
+			Parent: nil,
+			Puzzle: puzzle.Puzzle{{2, 8, 5}, {4, 0, 7}, {1, 3, 6}},
+		},
 	}
 
-	pq.Push(itemList[1])
-	pq.Push(itemList[0])
+	for i, item := range itemList {
+		t.Log("The priority of the ", i, " item: ", item.F(heuristics.Manhattan))
+		heap.Push(&pq, item)
+	}
 
-	poppedItem := pq.Pop()
+	lastPriority := 0
+	for i, _ := range itemList {
+		item := heap.Pop(&pq).(*state.State)
+		currPriority := item.F(heuristics.Manhattan)
+		t.Log("The priority of the ", i, " popped item: ", currPriority)
 
-	if poppedItem != itemList[1] {
-		t.Error("Item being popped did not match the expected.")
+		if currPriority < lastPriority {
+			t.Error("Item being popped has lower priority value than the one being popped before: ", currPriority, " vs previous ", lastPriority)
+		}
+		lastPriority = currPriority
 	}
 }
