@@ -2,32 +2,26 @@ package heuristics
 
 import (
 	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"github.com/alexpashkov/npuzzle/src/utils"
 )
 
-func Abs(n int) int {
-	if n < 0 {
-		return -n
-	}
-	return n
-}
-
 // calc distance for particular tile
-func tileDist(tile puzzle.Tile, x, y int, solvedP puzzle.Puzzle) int {
-	sx, sy := solvedP.Coords(tile)
-	return Abs(x-sx) + Abs(y-sy)
+func distance(origTile puzzle.Tile, origX, origY int, target puzzle.Puzzle) int {
+	targetX, targetY := target.Coords(origTile)
+	return utils.Abs(origX-targetX) + utils.Abs(origY-targetY)
 }
 
 // Takes puzzle and solved puzzle states
-var Manhattan Fn = func(p, solvedP puzzle.Puzzle) (dist int) {
-	distCh := make(chan int)
+var Manhattan Fn = func(p puzzle.Puzzle) (dist int) {
+	distancesCh := make(chan int)
 	p.ForEach(func(t puzzle.Tile, x, y int) (shellContinue bool) {
 		go func() {
-			distCh <- tileDist(t, x, y, solvedP)
+			distancesCh <- distance(t, x, y, puzzle.GetSolved(p.Size()))
 		}()
 		return true
 	})
 	p.ForEach(func(_ puzzle.Tile, _, _ int) (shellContinue bool) {
-		dist += <-distCh
+		dist += <-distancesCh
 		return true
 	})
 	return

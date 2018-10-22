@@ -64,7 +64,7 @@ var testCases = []testCase{
 
 func TestManhattan(t *testing.T) {
 	for _, tc := range testCases {
-		v := Manhattan(tc.p, puzzle.GetSolved(tc.p.Size()))
+		v := Manhattan(tc.p)
 		if v != tc.exp {
 			t.Error("wrong h() for puzzle: ", tc.p,
 				"expected: ", tc.exp, "got: ", v)
