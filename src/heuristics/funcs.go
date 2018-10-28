@@ -1,5 +1,5 @@
 package heuristics
 
-var Funcs = map[string]Fn{
-	"manhattan": Manhattan,
+var Funcs = map[string]Func{
+	"manhattan": manhattan,
 }

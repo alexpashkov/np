@@ -12,7 +12,7 @@ func distance(origTile puzzle.Tile, origX, origY int, target puzzle.Puzzle) int 
 }
 
 // Takes puzzle and solved puzzle states
-var Manhattan Fn = func(p puzzle.Puzzle) (dist int) {
+var manhattan Func = func(p puzzle.Puzzle) (dist int) {
 	distancesCh := make(chan int)
 	p.ForEach(func(t puzzle.Tile, x, y int) (shellContinue bool) {
 		go func() {

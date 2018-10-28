@@ -8,8 +8,10 @@ import (
 	"testing"
 )
 
+var manhattanHeuristics = heuristics.Funcs["manhattan"]
+
 func setupPriorityQueue(t *testing.T) (pq PriorityQueue) {
-	pq = New(heuristics.Manhattan)
+	pq = New(manhattanHeuristics)
 	itemsList := []*state.State{
 		{
 			Parent: nil,
@@ -20,8 +22,8 @@ func setupPriorityQueue(t *testing.T) (pq PriorityQueue) {
 			Puzzle: puzzle.Puzzle{{1, 2, 3}, {4, 5, 6}, {7, 8, 0}},
 		},
 	}
-	t.Log("The priority for the first item: ", itemsList[0].F(heuristics.Manhattan))
-	t.Log("The priority for the second item: ", itemsList[1].F(heuristics.Manhattan))
+	t.Log("The priority for the first item: ", itemsList[0].F(manhattanHeuristics))
+	t.Log("The priority for the second item: ", itemsList[1].F(manhattanHeuristics))
 	heap.Push(&pq, itemsList[0])
 	heap.Push(&pq, itemsList[1])
 	return
@@ -37,7 +39,7 @@ func TestPriorityQueue_Len(t *testing.T) {
 
 func TestPriorityQueue_Has(t *testing.T) {
 	pq := PriorityQueue{
-		priorityCalc: heuristics.Manhattan,
+		priorityCalc: manhattanHeuristics,
 	}
 	item := &state.State{
 		Parent: nil,
@@ -53,7 +55,7 @@ func TestPriorityQueue_Has(t *testing.T) {
 
 func TestPriorityQueue_Has2(t *testing.T) {
 	pq := PriorityQueue{
-		priorityCalc: heuristics.Manhattan,
+		priorityCalc: manhattanHeuristics,
 	}
 	item := &state.State{
 		Parent: nil,
@@ -89,7 +91,7 @@ func TestPriorityQueue_Push(t *testing.T) {
 }
 
 func TestPriorityQueue_Pop(t *testing.T) {
-	pq := New(heuristics.Manhattan)
+	pq := New(manhattanHeuristics)
 	itemList := []*state.State{
 		{
 			Parent: nil,
@@ -114,14 +116,14 @@ func TestPriorityQueue_Pop(t *testing.T) {
 	}
 
 	for i, item := range itemList {
-		t.Log("The priority of the ", i, " item: ", item.F(heuristics.Manhattan))
+		t.Log("The priority of the ", i, " item: ", item.F(manhattanHeuristics))
 		heap.Push(&pq, item)
 	}
 
 	lastPriority := 0
-	for i, _ := range itemList {
+	for i := range itemList {
 		item := heap.Pop(&pq).(*state.State)
-		currPriority := item.F(heuristics.Manhattan)
+		currPriority := item.F(manhattanHeuristics)
 		t.Log("The priority of the ", i, " popped item: ", currPriority)
 
 		if currPriority < lastPriority {

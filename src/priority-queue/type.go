@@ -9,7 +9,7 @@ import (
 
 type PriorityQueue struct {
 	queue        []*state.State
-	priorityCalc heuristics.Fn
+	priorityCalc heuristics.Func
 }
 
 func (pq PriorityQueue) Len() int {
@@ -47,7 +47,7 @@ func (pq PriorityQueue) Has(x interface{}) bool {
 	return false
 }
 
-func New(fn heuristics.Fn) (pq PriorityQueue) {
+func New(fn heuristics.Func) (pq PriorityQueue) {
 	pq.queue = make([]*state.State, 0)
 	pq.priorityCalc = fn
 	heap.Init(&pq)

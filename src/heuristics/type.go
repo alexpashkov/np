@@ -2,4 +2,4 @@ package heuristics
 
 import "github.com/alexpashkov/npuzzle/src/puzzle"
 
-type Fn func(p puzzle.Puzzle) int
+type Func func(p puzzle.Puzzle) int
