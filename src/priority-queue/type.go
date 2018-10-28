@@ -30,9 +30,19 @@ func (pq *PriorityQueue) Push(x interface{}) {
 }
 
 func (pq *PriorityQueue) Pop() (x interface{}) {
+	if pq.Len() == 0 {
+		return nil
+	}
 	x = pq.queue[len(pq.queue)-1]
 	pq.queue = pq.queue[0 : len(pq.queue)-1]
 	return
+}
+
+func (pq *PriorityQueue) Peek() (x interface{}) {
+	if pq.Len() == 0 {
+		return nil
+	}
+	return pq.queue[len(pq.queue)-1]
 }
 
 func (pq PriorityQueue) Has(x interface{}) bool {
