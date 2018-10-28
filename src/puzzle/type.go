@@ -41,6 +41,9 @@ func (p Puzzle) ForEach(fn func(t Tile, x, y int) (shellContinue bool)) {
 }
 
 func Equal(a, b Puzzle) bool {
+	if a == nil || b == nil {
+		return false
+	}
 	if len(a) != len(b) {
 		return false
 	}
