@@ -13,8 +13,8 @@ func Abs(n int) int {
 
 // calc distance for particular tile
 func tileDist(tile puzzle.Tile, x, y int, solved puzzle.Puzzle) int {
-	sx, sy := solved.Coords(tile)
-	return Abs(x-sx) + Abs(y-sy)
+	crds := solved.Find(tile)
+	return Abs(x-crds.X) + Abs(y-crds.Y)
 }
 
 // Takes puzzle and solved puzzle states

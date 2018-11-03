@@ -1,6 +1,9 @@
 package puzzle
 
 type Tile int
+type TileCoords struct {
+	X, Y int
+}
 
 func (t Tile) Val() int {
 	return int(t)
@@ -17,15 +20,15 @@ func (p Puzzle) Tile(x, y int) Tile {
 	return p[y][x]
 }
 
-func (p Puzzle) Coords(t Tile) (x, y int) {
+func (p Puzzle) Find(t Tile) (TileCoords) {
 	for y := range p {
 		for x, ct := range p[y] {
 			if ct.Val() == t.Val() {
-				return x, y
+				return TileCoords{X: x, Y: y}
 			}
 		}
 	}
-	return 0, 0
+	return TileCoords{X: -1, Y: -1}
 }
 
 // Iterates over puzzle tiles. Iteration will stop if provided function returns false
