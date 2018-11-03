@@ -20,7 +20,7 @@ func (p Puzzle) Tile(x, y int) Tile {
 	return p[y][x]
 }
 
-func (p Puzzle) Find(t Tile) (TileCoords) {
+func (p Puzzle) Find(t Tile) TileCoords {
 	for y := range p {
 		for x, ct := range p[y] {
 			if ct.Val() == t.Val() {

@@ -1,8 +1,8 @@
 package path
 
 import (
-	"testing"
 	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"testing"
 )
 
 func TestTileInversions(t *testing.T) {

@@ -18,11 +18,16 @@ func Next(currState State) (nextStates []*State) {
 		},
 	}
 	for _, m := range moves {
+
 		nextState := State{
 			Parent: &currState,
 		}
 		copy(currState.Puzzle, nextState.Puzzle)
-		puzzle.Swap(nextState.Puzzle, currState.EmptyTile(), m)
+		emptyTileCoords := currState.EmptyTileCoords()
+		puzzle.Swap(nextState.Puzzle, emptyTileCoords, puzzle.TileCoords{
+			X: emptyTileCoords.X + m.X,
+			Y: emptyTileCoords.Y + m.Y,
+		})
 		if currState.Parent != nil && nextState.Id() != currState.Parent.Id() {
 			nextStates = append(nextStates, &nextState)
 		}

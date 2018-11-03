@@ -40,7 +40,7 @@ func (s *State) F(f heuristics.Func) int {
 	return s.G() + s.H(f)
 }
 
-func (s *State) EmptyTile() puzzle.TileCoords {
+func (s *State) EmptyTileCoords() puzzle.TileCoords {
 	if s.empty.X == 0 && s.empty.Y == 0 {
 		s.empty = s.Puzzle.Find(0)
 	}
