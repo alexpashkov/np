@@ -27,7 +27,7 @@ func inversions(p puzzle.Puzzle) (invs int) {
 		zeroXPos = 0
 		zeroYPos = 0
 	)
-	p.ForEach(func(t puzzle.Tile, x, y int) (shellContinue bool) {
+	p.ForEach(func(t puzzle.Tile, x, y int) {
 		if t.Val() == 0 {
 			zeroXPos = x
 			zeroYPos = y
@@ -35,11 +35,9 @@ func inversions(p puzzle.Puzzle) (invs int) {
 		go func() {
 			ch <- tileInversions(p, x, y)
 		}()
-		return true
 	})
-	p.ForEach(func(_ puzzle.Tile, _, _ int) (shellContinue bool) {
+	p.ForEach(func(_ puzzle.Tile, _, _ int) {
 		invs += <-ch
-		return true
 	})
 	// if p size is even (there is no central tile), do some magic:
 	if p.Size()%2 == 0 {
