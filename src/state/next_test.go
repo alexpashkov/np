@@ -5,14 +5,6 @@ import (
 	"testing"
 )
 
-var nextOKTestCases = []struct {
-	curr State
-	exp  []State
-}{
-	{
-	},
-}
-
 func (states States) IdPresent(id string) bool {
 	for _, s := range states {
 		if s.Id() == id {
