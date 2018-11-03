@@ -23,7 +23,7 @@ func Next(currState State) (nextStates []*State) {
 		}
 		copy(currState.Puzzle, nextState.Puzzle)
 		puzzle.Swap(nextState.Puzzle, currState.EmptyTile(), m)
-		if nextState.Id() != currState.Parent.Id() {
+		if currState.Parent != nil && nextState.Id() != currState.Parent.Id() {
 			nextStates = append(nextStates, &nextState)
 		}
 	}
