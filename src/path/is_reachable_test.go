@@ -1,12 +1,15 @@
-package puzzle
+package path
 
-import "testing"
+import (
+	"testing"
+	"github.com/alexpashkov/npuzzle/src/puzzle"
+)
 
 func TestTileInversions(t *testing.T) {
 	type testCase struct {
 		x, y, expected int
 	}
-	p := Puzzle{
+	p := puzzle.Puzzle{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 0},
@@ -29,7 +32,7 @@ func TestTileInversions(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		got := TileInversions(p, tc.x, tc.y)
+		got := tileInversions(p, tc.x, tc.y)
 		if got != tc.expected {
 			t.Error("Wrong number of inversions, got ", got, "expected: ", tc.expected)
 		}
@@ -38,13 +41,13 @@ func TestTileInversions(t *testing.T) {
 
 func TestInversions(t *testing.T) {
 	type testCase struct {
-		p        Puzzle
+		p        puzzle.Puzzle
 		expected int
 	}
 
 	testCases := []testCase{
 		{
-			p: Puzzle{
+			p: puzzle.Puzzle{
 				{1, 2, 3, 4},
 				{5, 6, 7, 8},
 				{9, 10, 11, 12},
@@ -53,7 +56,7 @@ func TestInversions(t *testing.T) {
 			expected: 15,
 		},
 		{
-			p: Puzzle{
+			p: puzzle.Puzzle{
 				{1, 2, 3},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -61,7 +64,7 @@ func TestInversions(t *testing.T) {
 			expected: 0,
 		},
 		{
-			p: Puzzle{
+			p: puzzle.Puzzle{
 				{2, 1, 3},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -69,7 +72,7 @@ func TestInversions(t *testing.T) {
 			expected: 1,
 		},
 		{
-			p: Puzzle{
+			p: puzzle.Puzzle{
 				{2, 3, 1},
 				{4, 5, 6},
 				{7, 8, 0},
@@ -77,7 +80,7 @@ func TestInversions(t *testing.T) {
 			expected: 2,
 		},
 		{
-			p: Puzzle{
+			p: puzzle.Puzzle{
 				{1, 4, 2},
 				{5, 6, 3},
 				{7, 8, 0},
@@ -86,7 +89,7 @@ func TestInversions(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		bi := Inversions(tc.p)
+		bi := inversions(tc.p)
 		if bi != tc.expected {
 			t.Error("Wrong number of inversions, got ", bi, "expected: ", tc.expected)
 		}

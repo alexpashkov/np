@@ -13,7 +13,7 @@ func main() {
 	if err == nil {
 		fmt.Println("Puzzle:", initialPuzzle)
 		solvedPuzzle := puzzle.GetSolved(initialPuzzle.Size())
-		if !puzzle.IsReachable(initialPuzzle, solvedPuzzle) {
+		if !path.CanBeReached(initialPuzzle, solvedPuzzle) {
 			log.Fatalln("Puzzle is not solvable")
 		}
 		path.Find(initialPuzzle, solvedPuzzle)
