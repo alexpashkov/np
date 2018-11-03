@@ -4,14 +4,14 @@ import "github.com/alexpashkov/npuzzle/src/puzzle"
 
 // Counts number of inversions for a tile in position x, y
 func tileInversions(p puzzle.Puzzle, x, y int) (inversions int) {
-	examinedTile := p.Tile(x, y)
+	examinedTile := p.Tile(puzzle.TileCoords{X: x, Y: y})
 	for currY := y; currY < p.Size(); currY++ {
 		currX := 0
 		if currY == y {
 			currX = x
 		}
 		for ; currX < p.Size(); currX++ {
-			currTile := p.Tile(currX, currY)
+			currTile := p.Tile(puzzle.TileCoords{X: currX, Y: currY})
 			if currTile.Val() != 0 && examinedTile.Val() > currTile.Val() {
 				inversions++
 			}

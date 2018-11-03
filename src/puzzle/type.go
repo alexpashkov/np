@@ -16,8 +16,8 @@ func (p Puzzle) Size() int {
 	return len(p)
 }
 
-func (p Puzzle) Tile(x, y int) Tile {
-	return p[y][x]
+func (p Puzzle) Tile(coords TileCoords) Tile {
+	return p[coords.Y][coords.X]
 }
 
 func (p Puzzle) Find(t Tile) TileCoords {

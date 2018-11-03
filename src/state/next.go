@@ -1,6 +1,9 @@
 package state
 
-import "github.com/alexpashkov/npuzzle/src/puzzle"
+import (
+	"github.com/alexpashkov/npuzzle/src/puzzle"
+	"fmt"
+)
 
 func Next(currState State) (nextStates []*State) {
 	moves := [4]puzzle.TileCoords{
@@ -8,7 +11,7 @@ func Next(currState State) (nextStates []*State) {
 			X: 1, Y: 0,
 		},
 		{
-			X: 0, Y: -1,
+			X: 0, Y: 1,
 		},
 		{
 			X: -1, Y: 0,
@@ -18,16 +21,20 @@ func Next(currState State) (nextStates []*State) {
 		},
 	}
 	for _, m := range moves {
-
 		nextState := State{
 			Parent: &currState,
+			Puzzle: puzzle.Copy(currState.Puzzle),
 		}
-		copy(currState.Puzzle, nextState.Puzzle)
+		fmt.Println(nextState)
 		emptyTileCoords := currState.EmptyTileCoords()
-		puzzle.Swap(nextState.Puzzle, emptyTileCoords, puzzle.TileCoords{
+		fmt.Println(emptyTileCoords)
+		err := puzzle.Swap(nextState.Puzzle, emptyTileCoords, puzzle.TileCoords{
 			X: emptyTileCoords.X + m.X,
 			Y: emptyTileCoords.Y + m.Y,
 		})
+		if err != nil {
+			fmt.Println(err)
+		}
 		if currState.Parent != nil && nextState.Id() != currState.Parent.Id() {
 			nextStates = append(nextStates, &nextState)
 		}

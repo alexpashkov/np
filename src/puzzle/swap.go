@@ -18,6 +18,6 @@ func Swap(p Puzzle, a, b TileCoords) (err error) {
 	if outOfBounds(p, b) {
 		return fmt.Errorf("invalid coords: %v", b)
 	}
-	p[a.Y][a.X] = p[b.Y][b.X]
+	p[a.Y][a.X], p[b.Y][b.X] = p[b.Y][b.X], p[a.Y][a.X]
 	return
 }

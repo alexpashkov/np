@@ -21,7 +21,7 @@ func getNextCoords(x, y int, dir Direction) (int, int) {
 
 func shouldChangeDirection(p Puzzle, x, y int, dir Direction) bool {
 	x, y = getNextCoords(x, y, dir)
-	return x < 0 || y < 0 || x >= len(p) || y >= len(p) || p.Tile(x, y).Val() != 0
+	return x < 0 || y < 0 || x >= len(p) || y >= len(p) || p.Tile(TileCoords{X: x, Y: y}).Val() != 0
 }
 
 var solvedPuzzles = make(map[int]Puzzle)

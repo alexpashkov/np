@@ -13,7 +13,10 @@ func Find(from, to puzzle.Puzzle, f heuristics.Func) {
 	fromState := state.State{Parent: nil, Puzzle: from}
 	openSet.Push(&fromState)
 
-	for openSet.Len() != 0 && !puzzle.Equal(openSet.Peek().(*state.State).Puzzle, to) {
-		fmt.Println(openSet.Peek())
-	}
+	fmt.Println(state.Next(fromState))
+
+	//for openSet.Len() != 0 && !puzzle.Equal(openSet.Peek().(*state.State).Puzzle, to) {
+	//
+	//	fmt.Println(openSet.Peek())
+	//}
 }
