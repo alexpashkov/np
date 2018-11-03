@@ -36,3 +36,23 @@ func (p Puzzle) ForEach(fn func(t Tile, x, y int)) {
 		}
 	}
 }
+
+func Equal(a, b Puzzle) bool {
+	if a == nil || b == nil {
+		return false
+	}
+	if len(a) != len(b) {
+		return false
+	}
+	for y := range a {
+		if len(a[y]) != len(b[y]) {
+			return false
+		}
+		for x := range a[y] {
+			if a[y][x] != b[y][x] {
+				return false
+			}
+		}
+	}
+	return true
+}
