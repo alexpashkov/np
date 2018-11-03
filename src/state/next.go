@@ -4,7 +4,9 @@ import (
 	"github.com/alexpashkov/npuzzle/src/puzzle"
 )
 
-func Next(currState State) (nextStates []*State) {
+type States []State
+
+func Next(currState State) (nextStates States) {
 	moves := [4]puzzle.TileCoords{
 		{
 			X: 1, Y: 0,
@@ -30,7 +32,7 @@ func Next(currState State) (nextStates []*State) {
 			Y: emptyTileCoords.Y + m.Y,
 		})
 		if err == nil && (currState.Parent == nil || nextState.Id() != currState.Parent.Id()) {
-			nextStates = append(nextStates, &nextState)
+			nextStates = append(nextStates, nextState)
 		}
 	}
 	return
