@@ -18,17 +18,15 @@ func tileDist(tile puzzle.Tile, x, y int, solved puzzle.Puzzle) int {
 }
 
 // Takes puzzle and solved puzzle states
-var Manhattan Fn = func(currPzl, solvedPzl puzzle.Puzzle) (dist int) {
+var manhattan Func = func(p puzzle.Puzzle) (dist int) {
 	distCh := make(chan int)
-	currPzl.ForEach(func(t puzzle.Tile, x, y int) (shellContinue bool) {
+	p.ForEach(func(t puzzle.Tile, x, y int) {
 		go func() {
-			distCh <- tileDist(t, x, y, solvedPzl)
+			distCh <- tileDist(t, x, y, puzzle.GetSolved(p.Size()))
 		}()
-		return true
 	})
-	currPzl.ForEach(func(_ puzzle.Tile, _, _ int) (shellContinue bool) {
+	p.ForEach(func(_ puzzle.Tile, _, _ int) {
 		dist += <-distCh
-		return true
 	})
 	return
 }

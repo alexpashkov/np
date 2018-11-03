@@ -17,15 +17,15 @@ func (p Puzzle) Tile(x, y int) Tile {
 	return p[y][x]
 }
 
-func (p Puzzle) Coords(t Tile) (x, y int, ok bool) {
+func (p Puzzle) Coords(t Tile) (x, y int) {
 	for y := range p {
 		for x, ct := range p[y] {
 			if ct.Val() == t.Val() {
-				return x, y, true
+				return x, y
 			}
 		}
 	}
-	return 0, 0, false
+	return 0, 0
 }
 
 // Iterates over puzzle tiles. Iteration will stop if provided function returns false
